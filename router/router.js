@@ -26,7 +26,7 @@ router.use(express.json())
 router.use(bodyParser.urlencoded({ extended: false }))
 
 router.post("/support",async  (req,res)=> {
-    if(req.body.name || req.body.email || req.body.subject || req.body.message =="" ){
+    if(req.body.items || req.body.email || req.body.subject || req.body.message =="" ){
         const addedSuppot = new models.supportModel(req.body)
         await addedSuppot.save()
         const result =await models.supportModel.find ( {} )
@@ -61,7 +61,10 @@ router.post("/support",async  (req,res)=> {
                     await addeduser.save()
                     await sendmail(req.body.email ,plane_pass)
                     const cu_data =await  models.user.findOne({email:req.body.email})
-                    res.send(cu_data)  
+                    res.send(  {
+                        "success":1,
+                        "message": "succesful"                             
+                    } )  
                  }
                else{
                         all_data.map(async (ele,index)=>{
@@ -73,10 +76,17 @@ router.post("/support",async  (req,res)=> {
                                 addeduser.save()
                                 await sendmail(req.body.email, plane_pass)
                              const cu_data =await  models.user.find({email:ele.email})
-                                res.send(cu_data);  
-                             }
+                             res.send(  {
+                                "success":1,
+                                "message": " succesfull "                             
+                            } )
+                             
+                        }
                              else{
-                                  res.status(404).send("please signup with diffeent email and username ")
+                                res.send(  {
+                                    "success":0,
+                                    "message": " signup wih different email  "                             
+                                } )
                              }
                         })
                    } 
@@ -90,25 +100,35 @@ router.post("/support",async  (req,res)=> {
         //    if(  req.body.email && req.body.password   ){
             const u_data=await models.user.find( {email:`${req.body.email}`} )
             if(u_data!=""){
-            if(req.body.email==u_data[0].email)   {
+            if(req.body.email==u_data[0].email )   {
                  const user_data=await models.user.find({email:`${req.body.email}`}) 
                 const ismatch= await bcrypt.compare(req.body.password ,user_data[0].password  )
                  if(ismatch) 
-                     res.send(user_data.json())
-                 else
-                        res.send("Invalid password ")
+                     res.json(  {
+                         "success":1,
+                         "message": " succesfully logged in ",                             
+                     } )
+                 else{
+                    res.send(  {
+                        "success":0,
+                        "message": " Invalid password "                             
+                    } )
+                 }
+                        
             }       
            }
            else{
-                res.send("please enter valid email")
+            res.send(  {
+                "success":0,
+                "message": " Invalid email "                             
+            } )
            }
-            
-
     })   
 
-
-
-
-
-
 module.exports = router;
+
+
+
+
+
+
