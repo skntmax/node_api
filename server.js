@@ -7,6 +7,7 @@ const router=  require('./router/router')
 app.use(express.json())
 app.use(router)
 app.use(getrouter)
+app.use(require('./router/updaterouter'))
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.get("/home", (req,res)=>{

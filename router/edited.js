@@ -10,8 +10,10 @@ router.use(express.json())
 router.use(bodyParser.urlencoded({ extended: false }))
 
 router.post("http://192.168.2.23:3001/support",async  (req,res)=>{
-    // const addedSuppot = new models.supportModel( req.body)
-        // await addedSuppot.save()
+    
+     // const addedSuppot = new models.supportModel( req.body)
+        // await addedSuppot.save() 
+
     })   
 
 module.exports = router;

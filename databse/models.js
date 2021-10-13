@@ -59,14 +59,17 @@ const user = new mongoose.model("user", {
      password: {
          type: String,
          required: true
+     },
+     imageurl:{
+        type: String
      }
+     
  });
 
 if (supportModel && user && contactUs) {
     console.log("model created");
 } else
     console.log("There is something error  "); 
-
 
 module.exports = {supportModel , user ,contactUs};
 

@@ -1,15 +1,15 @@
 
  const sendmail= (useremail , password)=>{
-    const nodemailer = require('nodemailer');
-
+ const nodemailer = require('nodemailer');
+require('dotenv').config()
     let transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
         secure: true,   
         service: 'gmail',
             auth: {
-                user: "mcodewith@gmail.com",
-                pass: "sKnT@987"
+                user: process.env.EMAIL,
+                pass: process.env.PASSWORD
             }
     })
     

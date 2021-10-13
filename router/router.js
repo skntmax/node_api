@@ -76,7 +76,7 @@ router.post("/support",async  (req,res)=> {
                                 addeduser.save()
                                 await sendmail(req.body.email, plane_pass)
                              const cu_data =await  models.user.find({email:ele.email})
-                             res.send(  {
+                             await res.send(  {
                                 "success":1,
                                 "message": " succesfull "                             
                             } )
@@ -93,21 +93,20 @@ router.post("/support",async  (req,res)=> {
               }
        })  
 
-
-
        
-       router.post('/login' ,async (req,res)=>{ 
+       router.post('/login',async (req,res)=>{ 
         //    if(  req.body.email && req.body.password   ){
             const u_data=await models.user.find( {email:`${req.body.email}`} )
             if(u_data!=""){
             if(req.body.email==u_data[0].email )   {
                  const user_data=await models.user.find({email:`${req.body.email}`}) 
-                const ismatch= await bcrypt.compare(req.body.password ,user_data[0].password  )
+                const ismatch=await bcrypt.compare(req.body.password ,user_data[0].password  )
                  if(ismatch) 
-                     res.json(  {
+                     res.json({
+                         "id" :user_data[0]._id,  
                          "success":1,
                          "message": " succesfully logged in ",                             
-                     } )
+                     })
                  else{
                     res.send(  {
                         "success":0,
