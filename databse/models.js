@@ -2,6 +2,7 @@ require('dotenv').config()
 const router = require('express').Router();
 const mongoose = require('mongoose');
 const dbName=process.env.DB_NAME ; 
+
 const mongodb= "mongodb+srv://skntmax:sknt987@cluster0.q9uaj.mongodb.net/demo?retryWrites=true&w=majority"
 mongoose.connect(mongodb ,  {
 	useNewUrlParser: true,

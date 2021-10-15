@@ -1,7 +1,6 @@
-
  const sendmail= (useremail , password)=>{
  const nodemailer = require('nodemailer');
-require('dotenv').config()
+ require('dotenv').config()
     let transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
