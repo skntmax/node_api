@@ -1,0 +1,60 @@
+
+Url with their schema 
+
+url="/support" : {
+ name: {
+        type: String,
+        required: true
+    } , 
+    email: {
+        type: String,
+        required: true
+    }, 
+    subject: {
+        type: String,
+        required: true
+    } , 
+    message: {
+        type: String,
+        required: true
+    }
+}
+
+url="/contact" : {
+  name: {
+        type: String,
+        required: true
+    } , 
+    email: {
+        type: String,
+        required: true
+    }, 
+    message: {
+        type: String,
+        required: true
+    }
+}
+
+
+
+
+
+url= "/register" and "/login" : {
+ fullname: {
+        type: String,
+        required: true
+    }, 
+    email: {
+        type: String,
+        required: true
+    }, 
+    phone: {
+         type: Number,
+         required: true
+     }, 
+     password: {
+         type: String,
+         required: true
+     }
+
+}
