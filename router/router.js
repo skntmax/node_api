@@ -30,10 +30,16 @@ router.post("/support",async  (req,res)=> {
         const addedSuppot = new models.supportModel(req.body)
         await addedSuppot.save()
         const result =await models.supportModel.find ( {} )
-        res.send("sucesfully submited ")     
+        res.json(  {
+            "success":1,
+            "message": " submitted succesfully "                             
+        } )     
        }
        else{
-           res.send("can't send")
+        res.json(  {
+            "success":0,
+            "message": " Error "                             
+        } )
        }
     
     })   
@@ -43,10 +49,16 @@ router.post("/support",async  (req,res)=> {
             const addedContact = new models.contactUs(req.body)
             await addedContact.save()   
             const result =await models.contactUs.find ( {} )
-            res.send(result)     
+            res.json(  {
+                "success":1,
+                "message": " Submitted succesfully "                             
+            } )     
            }
            else{
-                res.send("Please fill all the data")
+            res.json(  {
+                "success":0,
+                "message": " Error "                             
+            } )
            }
         })  
 
@@ -61,7 +73,7 @@ router.post("/support",async  (req,res)=> {
                     await addeduser.save()
                     await sendmail(req.body.email ,plane_pass)
                     const cu_data =await  models.user.findOne({email:req.body.email})
-                    res.send(  {
+                    res.json(  {
                         "success":1,
                         "message": "succesful"                             
                     } )  
@@ -76,14 +88,14 @@ router.post("/support",async  (req,res)=> {
                                 addeduser.save()
                                 await sendmail(req.body.email, plane_pass)
                              const cu_data =await  models.user.find({email:ele.email})
-                             await res.send(  {
+                             res.json(  {
                                 "success":1,
                                 "message": " succesfull "                             
                             } )
                              
                         }
                              else{
-                                res.send(  {
+                                res.json(  {
                                     "success":0,
                                     "message": " signup wih different email  "                             
                                 } )
@@ -93,22 +105,24 @@ router.post("/support",async  (req,res)=> {
               }
        })  
 
+
+
        
-       router.post('/login',async (req,res)=>{ 
+       router.post('/login' ,async (req,res)=>{ 
         //    if(  req.body.email && req.body.password   ){
             const u_data=await models.user.find( {email:`${req.body.email}`} )
             if(u_data!=""){
             if(req.body.email==u_data[0].email )   {
                  const user_data=await models.user.find({email:`${req.body.email}`}) 
-                const ismatch=await bcrypt.compare(req.body.password ,user_data[0].password  )
+                const ismatch= await bcrypt.compare(req.body.password ,user_data[0].password  )
                  if(ismatch) 
-                     res.json({
-                         "id" :user_data[0]._id,  
+                     res.json(  {
+                         "id":user_data[0]._id,
                          "success":1,
                          "message": " succesfully logged in ",                             
-                     })
+                     } )
                  else{
-                    res.send(  {
+                    res.json(  {
                         "success":0,
                         "message": " Invalid password "                             
                     } )
@@ -117,7 +131,7 @@ router.post("/support",async  (req,res)=> {
             }       
            }
            else{
-            res.send(  {
+            res.json(  {
                 "success":0,
                 "message": " Invalid email "                             
             } )
@@ -125,9 +139,4 @@ router.post("/support",async  (req,res)=> {
     })   
 
 module.exports = router;
-
-
-
-
-
 

@@ -2,9 +2,14 @@ require('dotenv').config()
 const router = require('express').Router();
 const mongoose = require('mongoose');
 const dbName=process.env.DB_NAME ; 
-mongoose.connect(`mongodb://localhost:27017/${dbName}`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+const mongodb= "mongodb+srv://skntmax:sknt987@cluster0.q9uaj.mongodb.net/demo?retryWrites=true&w=majority"
+mongoose.connect(mongodb ,  {
+	useNewUrlParser: true,
+	useUnifiedTopology: true
+}).then(()=>{ 
+    console.log("db connected ")
+}).catch(err=>{
+    console.log(err)
 });
 
 const schema = new mongoose.Schema({
